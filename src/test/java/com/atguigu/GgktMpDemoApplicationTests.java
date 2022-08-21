@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.List;
 
 @SpringBootTest
@@ -36,7 +37,7 @@ class GgktMpDemoApplicationTests {
     public void addUser(){
         User user = new User();
         //自动生成id，不需要手动set值
-        user.setName("test");
+        user.setName("test05");
         user.setAge(29);
         user.setEmail("huhu@email.com");
         int rows = userMapper.insert(user);
@@ -66,7 +67,7 @@ class GgktMpDemoApplicationTests {
     @Test
     public void findPage(){
         //创建Page对象，传递两个参数：当前页、每页显示的记录数
-        Page<User> page = new Page<>(2,3);
+        Page<User> page = new Page<>(1,3);
         //调用mp方法实现分页
         userMapper.selectPage(page,null);
 
@@ -89,8 +90,21 @@ class GgktMpDemoApplicationTests {
         System.out.println(page.hasNext());
         //是否有上一页
         System.out.println(page.hasPrevious());
-        System.out.println(page.hasPrevious());
 
+    }
+
+    //id删除
+    @Test
+    public void deleteId(){
+        int rows = userMapper.deleteById(1560945802854047746L);
+        System.out.println(rows);
+    }
+
+    //批量删除
+    @Test
+    public void deleteBatchId(){
+        int rows = userMapper.deleteBatchIds(Arrays.asList(1, 3));
+        System.out.println(rows);
     }
 
 }
